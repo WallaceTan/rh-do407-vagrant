@@ -8,11 +8,15 @@ Vagrant.configure(2) do |config|
 
   # Define host settings
   config.vm.hostname = "dev.lab.example.com"
+  config.vm.network "forwarded_port", guest: 80, host: 8000
 
   # Define sync folder(s)
 
   # Define shell provisioner
   config.vm.provision "shell", path: "provisioner.sh"
+  
   # Define ansible provisioner
-
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "intranet-dev.yml"
+  end
 end
